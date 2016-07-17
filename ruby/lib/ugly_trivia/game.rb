@@ -61,6 +61,7 @@ module UglyTrivia
         else
           puts "#{@players[@current_player]} is not getting out of the penalty box"
           @is_getting_out_of_penalty_box = false
+          _move_to_next_player
         end
       else
         _advance_current_player_location(spaces: roll)

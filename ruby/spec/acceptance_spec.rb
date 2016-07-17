@@ -36,7 +36,7 @@ RSpec.describe UglyTrivia::Game do
   context 'game scenario' do
     let(:game) { UglyTrivia::Game.new }
 
-    it 'should behave as before' do
+    it 'should behave as expected' do
       expect{game.add('Chet')}.to output("Chet was added\nThey are player number 1\n").to_stdout
       expect{game.add('Pat')}.to output("Pat was added\nThey are player number 2\n").to_stdout
       expect{game.add('Sue')}.to output("Sue was added\nThey are player number 3\n").to_stdout
@@ -75,7 +75,6 @@ RSpec.describe UglyTrivia::Game do
 
       ## cannot escape penalty box with even roll, even with correct answer
       expect{game.roll(2)}.to output("Pat is the current player\n" + "They have rolled a 2\n" + "Pat is not getting out of the penalty box\n" ).to_stdout
-      expect{game.was_correctly_answered}.to_not output.to_stdout
 
       expect{game.roll(1)}.to output("Sue is the current player\n" + "They have rolled a 1\n" + "Sue's new location is 2\n"  + "The category is Sports\n" + "Sports Question 3\n" ).to_stdout
       expect{game.was_correctly_answered}.to output(/Sue now has 2 Gold Coins./).to_stdout
@@ -84,7 +83,6 @@ RSpec.describe UglyTrivia::Game do
 
       ## cannot escape penalty box with even roll, with incorrect answer
       expect{game.roll(2)}.to output("Pat is the current player\n" + "They have rolled a 2\n" + "Pat is not getting out of the penalty box\n" ).to_stdout
-      expect{game.wrong_answer}.to output("Question was incorrectly answered\n" + "Pat was sent to the penalty box\n").to_stdout
 
       expect{game.roll(1)}.to output(/Sue is the current player/ ).to_stdout
       expect{game.was_correctly_answered}.to output(/Sue now has 3 Gold Coins./).to_stdout
