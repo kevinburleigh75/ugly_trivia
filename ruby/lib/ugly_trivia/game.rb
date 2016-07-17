@@ -21,6 +21,10 @@ module UglyTrivia
       end
     end
 
+    def how_many_players
+      @players.length
+    end
+
     def is_playable?
       how_many_players >= 2
     end
@@ -37,8 +41,21 @@ module UglyTrivia
       true
     end
 
-    def how_many_players
-      @players.length
+    def was_correctly_answered
+      _handle_correct_answer
+      should_continue_game = _game_should_continue
+      _move_to_next_player
+      return should_continue_game
+    end
+
+    def wrong_answer
+      puts 'Question was incorrectly answered'
+      puts "#{@players[@current_player]} was sent to the penalty box"
+      @in_penalty_box[@current_player] = true
+
+      _move_to_next_player
+      should_continue_game = true
+      return should_continue_game
     end
 
     def roll(roll)
@@ -51,11 +68,11 @@ module UglyTrivia
         _move_to_next_player
       else
         _advance_current_player_location(spaces: roll)
-        ask_question
+        _ask_question
       end
     end
 
-  private
+    private
 
     def _handle_penalty_box(roll:)
       if @in_penalty_box[@current_player]
@@ -73,7 +90,7 @@ module UglyTrivia
       @places[@current_player] = @places[@current_player] - 12 if @places[@current_player] > 11
 
       puts "#{@players[@current_player]}'s new location is #{@places[@current_player]}"
-      puts "The category is #{current_category}"
+      puts "The category is #{_current_category}"
     end
 
     def _move_to_next_player
@@ -87,14 +104,14 @@ module UglyTrivia
       puts "#{@players[@current_player]} now has #{@purses[@current_player]} Gold Coins."
     end
 
-    def ask_question
-      puts @pop_questions.shift     if current_category == 'Pop'
-      puts @science_questions.shift if current_category == 'Science'
-      puts @sports_questions.shift  if current_category == 'Sports'
-      puts @rock_questions.shift    if current_category == 'Rock'
+    def _ask_question
+      puts @pop_questions.shift     if _current_category == 'Pop'
+      puts @science_questions.shift if _current_category == 'Science'
+      puts @sports_questions.shift  if _current_category == 'Sports'
+      puts @rock_questions.shift    if _current_category == 'Rock'
     end
 
-    def current_category
+    def _current_category
       return 'Pop'     if @places[@current_player] == 0
       return 'Pop'     if @places[@current_player] == 4
       return 'Pop'     if @places[@current_player] == 8
@@ -109,26 +126,9 @@ module UglyTrivia
 
   public
 
-    def was_correctly_answered
-      _handle_correct_answer
-      should_continue_game = game_should_continue
-      _move_to_next_player
-      return should_continue_game
-    end
-
-    def wrong_answer
-      puts 'Question was incorrectly answered'
-      puts "#{@players[@current_player]} was sent to the penalty box"
-      @in_penalty_box[@current_player] = true
-
-      _move_to_next_player
-      should_continue_game = true
-      return should_continue_game
-    end
-
   private
 
-    def game_should_continue
+    def _game_should_continue
       @purses[@current_player] < 6
     end
   end
