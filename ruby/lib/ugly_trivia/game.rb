@@ -12,7 +12,6 @@ module UglyTrivia
       @rock_questions    = []
 
       @current_player = 0
-      @is_getting_out_of_penalty_box = false
 
       50.times do |i|
         @pop_questions.push     "Pop Question #{i}"
@@ -52,15 +51,12 @@ module UglyTrivia
 
       if @in_penalty_box[@current_player]
         if roll % 2 != 0
-          @is_getting_out_of_penalty_box = true
-
           puts "#{@players[@current_player]} is getting out of the penalty box"
           _advance_current_player_location(spaces: roll)
 
           ask_question
         else
           puts "#{@players[@current_player]} is not getting out of the penalty box"
-          @is_getting_out_of_penalty_box = false
           _move_to_next_player
         end
       else
@@ -113,28 +109,10 @@ module UglyTrivia
   public
 
     def was_correctly_answered
-      if @in_penalty_box[@current_player]
-        if @is_getting_out_of_penalty_box
-          _handle_correct_answer
-
-          winner = did_player_win()
-
-          _move_to_next_player
-
-          winner
-        else
-          _move_to_next_player
-          true
-        end
-      else
-        _handle_correct_answer
-
-        winner = did_player_win
-
-        _move_to_next_player
-
-        return winner
-      end
+      _handle_correct_answer
+      winner = did_player_win
+      _move_to_next_player
+      return winner
     end
 
     def wrong_answer
