@@ -110,9 +110,9 @@ module UglyTrivia
 
     def was_correctly_answered
       _handle_correct_answer
-      winner = did_player_win
+      should_continue_game = game_should_continue
       _move_to_next_player
-      return winner
+      return should_continue_game
     end
 
     def wrong_answer
@@ -121,13 +121,14 @@ module UglyTrivia
       @in_penalty_box[@current_player] = true
 
       _move_to_next_player
-      return true
+      should_continue_game = true
+      return should_continue_game
     end
 
   private
 
-    def did_player_win
-      !(@purses[@current_player] == 6)
+    def game_should_continue
+      @purses[@current_player] < 6
     end
   end
 end
