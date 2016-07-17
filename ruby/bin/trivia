@@ -14,7 +14,7 @@ loop do
 
   should_continue_game =
     if rand(9) == 7
-      game.wrong_answer
+      game.was_incorrectly_answered
     else
       game.was_correctly_answered
     end

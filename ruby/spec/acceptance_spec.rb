@@ -64,7 +64,7 @@ RSpec.describe UglyTrivia::Game do
       expect{game.roll(1)}.to output("Pat is the current player\n" + "They have rolled a 1\n" + "Pat's new location is 1\n"  + "The category is Science\n" + "Science Question 3\n" ).to_stdout
 
       ## incorrect answer advances sends player to penalty box and advances to next player
-      expect{game.wrong_answer}.to output("Question was incorrectly answered\n" + "Pat was sent to the penalty box\n").to_stdout
+      expect{game.was_incorrectly_answered}.to output("Question was incorrectly answered\n" + "Pat was sent to the penalty box\n").to_stdout
       expect{game.roll(1)}.to output("Sue is the current player\n" + "They have rolled a 1\n" + "Sue's new location is 1\n"  + "The category is Science\n" + "Science Question 4\n" ).to_stdout
 
       ## turn wrapping

@@ -48,11 +48,8 @@ module UglyTrivia
       return should_continue_game
     end
 
-    def wrong_answer
-      puts 'Question was incorrectly answered'
-      puts "#{@players[@current_player]} was sent to the penalty box"
-      @in_penalty_box[@current_player] = true
-
+    def was_incorrectly_answered
+      _handle_incorrect_answer
       _move_to_next_player
       should_continue_game = true
       return should_continue_game
@@ -102,6 +99,12 @@ module UglyTrivia
       puts 'Answer was correct!!!!'
       @purses[@current_player] += 1
       puts "#{@players[@current_player]} now has #{@purses[@current_player]} Gold Coins."
+    end
+
+    def _handle_incorrect_answer
+      puts 'Question was incorrectly answered'
+      puts "#{@players[@current_player]} was sent to the penalty box"
+      @in_penalty_box[@current_player] = true
     end
 
     def _ask_question
