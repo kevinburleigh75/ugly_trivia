@@ -60,7 +60,7 @@ RSpec.describe UglyTrivia::Game do
       expect{game.roll(15)}.to output("Chet is the current player\n" + "They have rolled a 15\n" + "Chet's new location is 3\n"  + "The category is Rock\n" + "Rock Question 3\n").to_stdout
 
       ## correct answer advances to next player
-      expect{game.was_correctly_answered}.to output("Answer was corrent!!!!\n" + "Chet now has 1 Gold Coins.\n").to_stdout
+      expect{game.was_correctly_answered}.to output("Answer was correct!!!!\n" + "Chet now has 1 Gold Coins.\n").to_stdout
       expect{game.roll(1)}.to output("Pat is the current player\n" + "They have rolled a 1\n" + "Pat's new location is 1\n"  + "The category is Science\n" + "Science Question 3\n" ).to_stdout
 
       ## incorrect answer advances sends player to penalty box and advances to next player
@@ -68,7 +68,7 @@ RSpec.describe UglyTrivia::Game do
       expect{game.roll(1)}.to output("Sue is the current player\n" + "They have rolled a 1\n" + "Sue's new location is 1\n"  + "The category is Science\n" + "Science Question 4\n" ).to_stdout
 
       ## turn wrapping
-      expect{game.was_correctly_answered}.to output("Answer was corrent!!!!\n" + "Sue now has 1 Gold Coins.\n").to_stdout
+      expect{game.was_correctly_answered}.to output("Answer was correct!!!!\n" + "Sue now has 1 Gold Coins.\n").to_stdout
       expect{game.roll(1)}.to output("Chet is the current player\n" + "They have rolled a 1\n" + "Chet's new location is 4\n"  + "The category is Pop\n" + "Pop Question 4\n" ).to_stdout
 
       expect{game.was_correctly_answered}.to output(/Chet now has 2 Gold Coins./).to_stdout
