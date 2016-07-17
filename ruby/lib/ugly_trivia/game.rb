@@ -49,16 +49,10 @@ module UglyTrivia
       puts "#{@players[@current_player]} is the current player"
       puts "They have rolled a #{roll}"
 
-      if @in_penalty_box[@current_player]
-        if roll % 2 != 0
-          puts "#{@players[@current_player]} is getting out of the penalty box"
-          _advance_current_player_location(spaces: roll)
+      _handle_penalty_box(roll: roll)
 
-          ask_question
-        else
-          puts "#{@players[@current_player]} is not getting out of the penalty box"
-          _move_to_next_player
-        end
+      if @in_penalty_box[@current_player]
+        _move_to_next_player
       else
         _advance_current_player_location(spaces: roll)
         ask_question
@@ -66,6 +60,17 @@ module UglyTrivia
     end
 
   private
+
+    def _handle_penalty_box(roll:)
+      if @in_penalty_box[@current_player]
+        if roll % 2 != 0
+          puts "#{@players[@current_player]} is getting out of the penalty box"
+          @in_penalty_box[@current_player] = false
+        else
+          puts "#{@players[@current_player]} is not getting out of the penalty box"
+        end
+      end
+    end
 
     def _advance_current_player_location(spaces:)
       @places[@current_player] = @places[@current_player] + spaces
