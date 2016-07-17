@@ -1,24 +1,24 @@
 module UglyTrivia
   class Game
-    def  initialize
-      @players = []
-      @places = Array.new(6, 0)
-      @purses = Array.new(6, 0)
+    def initialize
+      @players        = []
+      @places         = Array.new(6, 0)
+      @purses         = Array.new(6, 0)
       @in_penalty_box = Array.new(6, nil)
 
-      @pop_questions = []
+      @pop_questions     = []
       @science_questions = []
-      @sports_questions = []
-      @rock_questions = []
+      @sports_questions  = []
+      @rock_questions    = []
 
       @current_player = 0
       @is_getting_out_of_penalty_box = false
 
       50.times do |i|
-        @pop_questions.push "Pop Question #{i}"
+        @pop_questions.push     "Pop Question #{i}"
         @science_questions.push "Science Question #{i}"
-        @sports_questions.push "Sports Question #{i}"
-        @rock_questions.push create_rock_question(i)
+        @sports_questions.push  "Sports Question #{i}"
+        @rock_questions.push    create_rock_question(i)
       end
     end
 
@@ -64,10 +64,8 @@ module UglyTrivia
         else
           puts "#{@players[@current_player]} is not getting out of the penalty box"
           @is_getting_out_of_penalty_box = false
-          end
-
+        end
       else
-
         @places[@current_player] = @places[@current_player] + roll
         @places[@current_player] = @places[@current_player] - 12 if @places[@current_player] > 11
 
@@ -118,11 +116,7 @@ module UglyTrivia
           @current_player = 0 if @current_player == @players.length
           true
         end
-
-
-
       else
-
         puts "Answer was corrent!!!!"
         @purses[@current_player] += 1
         puts "#{@players[@current_player]} now has #{@purses[@current_player]} Gold Coins."
@@ -136,13 +130,13 @@ module UglyTrivia
     end
 
     def wrong_answer
-  		puts 'Question was incorrectly answered'
-  		puts "#{@players[@current_player]} was sent to the penalty box"
-  		@in_penalty_box[@current_player] = true
+      puts 'Question was incorrectly answered'
+      puts "#{@players[@current_player]} was sent to the penalty box"
+      @in_penalty_box[@current_player] = true
 
       @current_player += 1
       @current_player = 0 if @current_player == @players.length
-  		return true
+      return true
     end
 
   private
