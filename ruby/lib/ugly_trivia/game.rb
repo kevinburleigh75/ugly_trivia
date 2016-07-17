@@ -13,16 +13,12 @@ module UglyTrivia
 
       @current_player = 0
 
-      50.times do |i|
-        @pop_questions.push     "Pop Question #{i}"
-        @science_questions.push "Science Question #{i}"
-        @sports_questions.push  "Sports Question #{i}"
-        @rock_questions.push    create_rock_question(i)
+      50.times do |ii|
+        @pop_questions.push     "Pop Question #{ii}"
+        @science_questions.push "Science Question #{ii}"
+        @sports_questions.push  "Sports Question #{ii}"
+        @rock_questions.push    "Rock Question #{ii}"
       end
-    end
-
-    def create_rock_question(index)
-      "Rock Question #{index}"
     end
 
     def is_playable?
